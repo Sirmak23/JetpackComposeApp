@@ -21,18 +21,17 @@ class MovieViewModel @Inject constructor(
 
     fun getMovies(request: MovieRequest) {
         viewModelScope.launch {
-            try {
-                movieUseCase.invoke(request).collect { response ->
+            movieUseCase.invoke(request).collect { result ->
+                result.onSuccess { response ->
                     if (response.results.isNotEmpty()) {
                         _movies.emit(MovieUiState.Success(response))
                     } else {
                         _movies.emit(MovieUiState.Empty)
                     }
+                }.onFailure { error ->
+                    _movies.emit(MovieUiState.Error(error.localizedMessage.orEmpty()))
                 }
-            } catch (e: Exception) {
-                _movies.emit(MovieUiState.Error(e.localizedMessage.orEmpty()))
             }
         }
     }
-
 }

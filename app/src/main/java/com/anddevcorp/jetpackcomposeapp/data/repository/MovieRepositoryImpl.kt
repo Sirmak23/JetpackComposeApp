@@ -11,9 +11,13 @@ import javax.inject.Singleton
 @Singleton
 class MovieRepositoryImpl @Inject constructor(
     private val movieService: MovieService
-): MovieRepository {
-
-    override suspend fun getPopularMovies(request: MovieRequest): MovieResponse {
-        return movieService.getPopularMovies(request.toMap())
+) : MovieRepository {
+    override suspend fun getPopularMovies(request: MovieRequest): Result<MovieResponse> {
+        return try {
+            val response = movieService.getPopularMovies(request.toMap())
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

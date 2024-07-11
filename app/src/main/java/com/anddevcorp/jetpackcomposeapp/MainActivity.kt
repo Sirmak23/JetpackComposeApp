@@ -3,6 +3,7 @@ package com.anddevcorp.jetpackcomposeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.slideInVertically
@@ -42,7 +43,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
 import com.anddevcorp.jetpackcomposeapp.data.request.getRequestModel
 import com.anddevcorp.jetpackcomposeapp.model.Movie
 import com.anddevcorp.jetpackcomposeapp.model.MovieUiState
@@ -53,9 +53,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel by lazy {
-        ViewModelProvider(this, defaultViewModelProviderFactory)[MovieViewModel::class.java]
-    }
+
+    private val viewModel: MovieViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +65,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 
 @Composable
 fun MovieScreen(viewModel: MovieViewModel) {

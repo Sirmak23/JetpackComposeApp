@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MovieUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
-    suspend operator fun invoke(request: MovieRequest): Flow<MovieResponse> = flow {
+    suspend operator fun invoke(request: MovieRequest): Flow<Result<MovieResponse>> = flow {
         val response = withContext(Dispatchers.IO) {
             movieRepository.getPopularMovies(request)
         }

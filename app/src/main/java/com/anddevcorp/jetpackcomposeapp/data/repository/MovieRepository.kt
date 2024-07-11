@@ -5,5 +5,5 @@ import com.anddevcorp.jetpackcomposeapp.model.MovieResponse
 
 
 interface MovieRepository {
-    suspend fun getPopularMovies(request: MovieRequest): MovieResponse
+    suspend fun getPopularMovies(request: MovieRequest): Result<MovieResponse>
 }
