@@ -15,13 +15,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,7 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import com.anddevcorp.jetpackcomposeapp.data.request.MovieRequest
+import com.anddevcorp.jetpackcomposeapp.data.request.getRequestModel
 import com.anddevcorp.jetpackcomposeapp.model.Movie
 import com.anddevcorp.jetpackcomposeapp.model.MovieUiState
 import com.anddevcorp.jetpackcomposeapp.ui.ext.GetImage
@@ -98,7 +102,7 @@ fun MovieScreen(viewModel: MovieViewModel) {
             }
 
             is MovieUiState.Loading -> {
-//                CircularProgressIndicator()
+                CircularProgressIndicator()
             }
         }
     }
@@ -167,20 +171,61 @@ fun MovieList(movies: List<Movie>) {
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(10.dp),
     ) {
+        item(span = { GridItemSpan(3) }) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Divider(modifier = Modifier.fillMaxWidth(), thickness = 2.dp)
+                Text(
+                    "Recomposition", style = TextStyle(
+                        color = Color.White, fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        }
         items(movies) { movie ->
             MovieItem(movie = movie)
+        }
+        item(span = { GridItemSpan(3) }) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Divider(modifier = Modifier.fillMaxWidth(), thickness = 2.dp)
+                Text(
+                    "Composition", style = TextStyle(
+                        color = Color.White, fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        }
+        items(movies) { movie ->
+            MovieItemComposition(movie = movie)
         }
     }
 }
 
+@Composable
+fun MovieItemComposition(movie: Movie) {
 
-fun getRequestModel(pageNumber: Int = 1) = MovieRequest(
-    includeAdult = false,
-    includeVideo = false,
-    language = "tr-TR",
-    page = pageNumber,
-    sortBy = "popularity.desc"
-)
+    var isSelected by remember { mutableStateOf(false) }
+
+    Box(
+        modifier = Modifier
+            .padding(5.dp)
+            .clickable {
+                isSelected = !isSelected
+            }
+            .border(2.dp, Color.Black, customBorderShape)
+            .background(Color.White, customShape)
+            .height(200.dp)
+            .clip(customShape)
+    ) {
+        GetImage(
+            movie.posterPath,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxSize()
+                .scale(1.8f)
+                .aspectRatio(1f)
+        )
+    }
+}
 
 //// recomposition error
 //@Composable

@@ -18,3 +18,12 @@ fun MovieRequest.toMap(): Map<String, String> {
     map["sort_by"] = sortBy
     return map
 }
+
+fun getRequestModel(pageNumber: Int = 1) = MovieRequest(
+    includeAdult = false,
+    includeVideo = false,
+    language = "tr-TR",
+    page = pageNumber,
+    sortBy = "popularity.desc"
+)
+
