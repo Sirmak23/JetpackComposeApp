@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
             viewModel.getMovies(getRequestModel())
             MovieScreen(viewModel)
 
@@ -202,15 +201,9 @@ fun MovieList(movies: List<Movie>) {
 
 @Composable
 fun MovieItemComposition(movie: Movie) {
-
-    var isSelected by remember { mutableStateOf(false) }
-
     Box(
         modifier = Modifier
             .padding(5.dp)
-            .clickable {
-                isSelected = !isSelected
-            }
             .border(2.dp, Color.Black, customBorderShape)
             .background(Color.White, customShape)
             .height(200.dp)
