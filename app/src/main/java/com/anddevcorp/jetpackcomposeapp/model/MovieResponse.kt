@@ -1,5 +1,7 @@
 package com.anddevcorp.jetpackcomposeapp.model
 
+
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponse(
@@ -8,14 +10,11 @@ data class MovieResponse(
     @SerializedName("results")
     val results: List<Movie>
 )
-
 data class Movie(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String,
-    @SerializedName("genre_ids")
-    val genreIds: List<Int>,
     @SerializedName("id")
     val id: Int,
     @SerializedName("original_language")
@@ -27,7 +26,7 @@ data class Movie(
     @SerializedName("popularity")
     val popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    var posterPath: String,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("title")

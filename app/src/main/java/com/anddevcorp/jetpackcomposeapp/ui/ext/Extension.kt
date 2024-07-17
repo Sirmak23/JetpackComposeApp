@@ -1,15 +1,9 @@
 package com.anddevcorp.jetpackcomposeapp.ui.ext
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
@@ -30,7 +24,7 @@ val customBorderShape = RoundedCornerShape(
 fun GetImage(imageUrl:String, modifier: Modifier){
     AsyncImage(
         model = "https://image.tmdb.org/t/p/w1280$imageUrl",
-        contentDescription = "Example Image",
+        contentDescription = null,
         modifier = modifier
     )
 }

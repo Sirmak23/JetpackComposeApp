@@ -1,10 +1,12 @@
 package com.anddevcorp.jetpackcomposeapp.model
 
+import androidx.compose.runtime.snapshots.SnapshotStateList
+
 
 sealed class MovieUiState(
-    open val movies: MovieResponse? = null
+    open val movies: SnapshotStateList<Movie>? = null
 ) {
-    data class Success(override val movies: MovieResponse) : MovieUiState(movies)
+    data class Success(override val movies: SnapshotStateList<Movie>) : MovieUiState(movies)
 
     data class Error(val error: String) : MovieUiState()
 
